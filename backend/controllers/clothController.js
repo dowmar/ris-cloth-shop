@@ -4,6 +4,7 @@ import {
   fetchClothsByCategory,
   patchClothById,
   deleteCloth,
+  insertCloth,
 } from "../services/clothService.js";
 
 export const getCloths = async (req, res) => {
@@ -48,6 +49,19 @@ export const updateCloth = async (req, res) => {
     const { id } = req.params;
     const { name, img, price } = req.body;
     const cloth = await patchClothById(id, name, price, img);
+    if (!cloth) {
+      res.status(404).json({ message: "Cloth not found" });
+    } else {
+      res.status(200).json(cloth);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+export const createCloth = async (req, res) => {
+  try {
+    const { name, itemid, img, price, rating } = req.body;
+    const cloth = await insertCloth(name, itemid, price, img, rating);
     if (!cloth) {
       res.status(404).json({ message: "Cloth not found" });
     } else {

@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth.jsx';
 import axios from '../api/axios';
 import useInput from '../hooks/useInput.jsx';
 import useToggle from '../hooks/useToggle.jsx';
+import '../css/login.css'
 const LOGIN_URL = '/auth';
 
 const Login = () => {
@@ -85,8 +86,6 @@ const Login = () => {
                     ref={userRef}
                     autoComplete="off"
                     {...attributeObj}
-                    // onChange={(e) => setEmail(e.target.value)}
-                    // value={email || ''}
                     required
                 />
 

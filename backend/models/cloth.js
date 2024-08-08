@@ -10,6 +10,24 @@ export const getClothById = async (id) => {
   return result.rows[0];
 };
 
+export const createNewCloth = async (name, itemid, price, img, rating) => {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    const result = await client.query(
+      "INSERT INTO shops (name, itemid, imgsrc, price, ratings) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [name, itemid, img, parseFloat(price), parseInt(rating)]
+    );
+    await client.query("COMMIT");
+    return result.rows[0];
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
+};
+
 export const updateClothById = async (id, name, price, img) => {
   const client = await pool.connect();
   try {

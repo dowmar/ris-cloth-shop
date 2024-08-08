@@ -5,6 +5,7 @@ import {
   getClothsByCategory,
   updateCloth,
   deleteClothId,
+  createCloth,
 } from "../controllers/clothController.js";
 import verifyJWT from "../middleware/verifyJWT.js";
 
@@ -15,5 +16,6 @@ router.get("/:id", getCloth);
 router.get("/category/:categoryId", getClothsByCategory);
 router.patch("/:id", updateCloth);
 router.delete("/:id", deleteClothId);
+router.post("/", createCloth);
 
 export default router;

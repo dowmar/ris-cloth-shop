@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton,
-  Pagination
+  Pagination,
+  Button
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import EditProduct from './EditProduct';
+import CreateProduct from './CreateProduct';
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
@@ -14,6 +15,7 @@ const ProductTable = () => {
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(5);
   const [open, setOpen] = useState(false);
+  const [create, setCreate] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
@@ -45,7 +47,12 @@ const ProductTable = () => {
     setOpen(true);
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setCreate(false);
+  }
+
+  const handleCreate = () => setCreate(true);
 
   const handleDelete = async (id) => {
     try {
@@ -64,7 +71,26 @@ const ProductTable = () => {
 
   return (
     <div className='menuTable'>
-      <h1>Products Page</h1>
+      <div>
+        <h1>Products Page</h1>
+        <Button className='detailButton' variant="contained"
+          sx={{
+            marginLeft: "auto",
+            bgcolor: '#f8901c',
+            '&:hover': {
+              bgcolor: '#fff',
+              color: '#f8901c'
+            },
+            color: '#fff'
+          }}
+          onClick={handleCreate}>
+          <h3>Create</h3>
+        </Button>
+        <CreateProduct
+          open={create}
+          handleClose={handleClose}
+        />
+      </div>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

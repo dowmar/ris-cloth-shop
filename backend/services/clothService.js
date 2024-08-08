@@ -4,6 +4,7 @@ import {
   getClothsByCategory,
   updateClothById,
   deleteClothById,
+  createNewCloth,
 } from "../models/cloth.js";
 
 export const fetchAllCloths = async () => {
@@ -23,4 +24,7 @@ export const fetchClothsByCategory = async (categoryId) => {
 
 export const patchClothById = async (id, name, price, img) => {
   return await updateClothById(id, name, price, img);
+};
+export const insertCloth = async (name, itemid, price, img, rating) => {
+  return await createNewCloth(name, itemid, price, img, rating);
 };
